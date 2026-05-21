@@ -12,7 +12,8 @@
     * {
       margin: 0;
       padding: 0;
-      box-sizing: border-box
+      box-sizing: border-box;
+      -webkit-tap-highlight-color: transparent;
     }
 
     :root {
@@ -519,70 +520,205 @@
       opacity: 1
     }
 
-    /* ── MOBILE ── */
-    @media(max-width:700px) {
-      :root {
-        --pw: 100%;
-        --ph: 500px
-      }
+    /* ── PAGE SCROLL ON MOBILE ── */
+    .page-inner {
+      overflow-y: auto;
+      -webkit-overflow-scrolling: touch;
+    }
+    .page-inner::-webkit-scrollbar { width: 3px; }
+    .page-inner::-webkit-scrollbar-track { background: transparent; }
+    .page-inner::-webkit-scrollbar-thumb { background: rgba(0,0,0,.2); border-radius: 3px; }
 
-      .page-left,
-      .spine {
-        display: none
-      }
-
-      .page-right {
-        border-radius: 0
-      }
-
-      .stage {
-        min-height: var(--ph)
-      }
-
-      .ctrl-bar {
-        gap: 6px;
-        padding: 8px 10px
-      }
-
-      .btn {
-        padding: 8px 14px;
-        font-size: .76rem
-      }
-
-      .topbar h1 {
-        font-size: .85rem
-      }
-
-      .chapter-select {
-        font-size: .72rem
-      }
-
-      .search-box {
-        font-size: .72rem;
-        min-width: 80px
-      }
+    /* ── SWIPE HINT ── */
+    .swipe-hint {
+      display: none;
+      text-align: center;
+      padding: 6px 0 2px;
+      font-family: 'Nunito', sans-serif;
+      font-size: .68rem;
+      color: rgba(255,255,255,.35);
+      letter-spacing: .5px;
     }
 
-    @media(max-width:420px) {
+    /* ── MOBILE (≤ 680px) ── */
+    @media (max-width: 680px) {
+      body {
+        padding: 8px 6px 80px; /* space for bottom nav */
+      }
+
       :root {
-        --ph: 480px
-      }
-
-      .btn {
-        padding: 7px 10px;
-        font-size: .72rem
-      }
-
-      .ctrl-bar {
-        gap: 4px
+        --ph: auto;
       }
 
       .topbar {
-        padding: 8px 12px
+        padding: 10px 14px;
+        border-radius: 12px;
+        margin-bottom: 8px;
       }
 
       .topbar h1 {
-        font-size: .78rem
+        font-size: .9rem;
+      }
+
+      .spread-lbl {
+        font-size: .75rem;
+      }
+
+      /* Hide left page & spine — single page view */
+      .page-left,
+      .spine {
+        display: none;
+      }
+
+      .page-right {
+        border-radius: 0;
+        width: 100%;
+      }
+
+      .stage {
+        min-height: 0;
+      }
+
+      /* Page content scrollable */
+      .page-inner {
+        padding: 18px 16px 40px;
+        max-height: calc(100svh - 220px);
+        min-height: 300px;
+        height: auto;
+      }
+
+      /* Bigger fonts inside page on mobile */
+      .chapter-badge {
+        font-size: .65rem;
+        padding: 3px 12px;
+      }
+
+      .q-number {
+        font-size: .72rem;
+      }
+
+      .q-text {
+        font-size: .88rem;
+        line-height: 1.55;
+        margin-bottom: 10px;
+      }
+
+      .ans-en-label,
+      .ans-hi-label {
+        font-size: .65rem;
+      }
+
+      .ans-en {
+        font-size: .82rem;
+        line-height: 1.7;
+      }
+
+      .ans-hi {
+        font-size: .8rem;
+        line-height: 1.7;
+      }
+
+      .code-block {
+        font-size: .68rem;
+        padding: 8px 10px;
+      }
+
+      .toc-title {
+        font-size: 1rem;
+      }
+
+      .toc-item {
+        font-size: .78rem;
+        padding: 7px 0;
+      }
+
+      .cover-title {
+        font-size: 1.2rem;
+      }
+
+      .cover-sub {
+        font-size: .8rem;
+      }
+
+      .stat-num {
+        font-size: 1.1rem;
+      }
+
+      /* ── CONTROLS: hidden top bar, use fixed bottom nav ── */
+      .ctrl-bar {
+        display: none; /* hidden — replaced by bottom nav */
+      }
+
+      /* Swipe hint visible */
+      .swipe-hint {
+        display: block;
+      }
+
+      /* ── FIXED BOTTOM NAV ── */
+      .bottom-nav {
+        display: flex !important;
+      }
+    }
+
+    /* ── FIXED BOTTOM NAV (mobile only) ── */
+    .bottom-nav {
+      display: none;
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: rgba(10, 8, 25, 0.96);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border-top: 1px solid rgba(255,255,255,.1);
+      padding: 8px 12px;
+      z-index: 100;
+      gap: 8px;
+      flex-direction: column;
+    }
+
+    .bottom-nav-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .bottom-nav .btn {
+      min-height: 44px;
+      min-width: 44px;
+      padding: 10px 18px;
+      font-size: .82rem;
+      flex-shrink: 0;
+    }
+
+    .bottom-nav .chapter-select,
+    .bottom-nav .search-box {
+      min-height: 44px;
+      font-size: .8rem;
+      flex: 1;
+    }
+
+    /* ── SMALL PHONE (≤ 380px) ── */
+    @media (max-width: 380px) {
+      .topbar h1 {
+        font-size: .78rem;
+      }
+
+      .q-text {
+        font-size: .82rem;
+      }
+
+      .ans-en {
+        font-size: .78rem;
+      }
+
+      .ans-hi {
+        font-size: .75rem;
+      }
+
+      .bottom-nav .btn {
+        padding: 10px 12px;
+        font-size: .76rem;
       }
     }
   </style>
@@ -632,9 +768,36 @@
       <div class="page page-right" id="pageRight"></div>
     </div>
 
-
+    <!-- swipe hint (mobile only) -->
+    <div class="swipe-hint">👈 Swipe left / right to navigate 👉</div>
 
   </div><!-- /book-wrap -->
+
+  <!-- FIXED BOTTOM NAV (mobile only) -->
+  <nav class="bottom-nav" id="bottomNav" aria-label="Book navigation">
+    <!-- Row 1: Prev / Chapter select / Next -->
+    <div class="bottom-nav-row">
+      <button class="btn btn-nav" id="btnPrevM" onclick="navigate(-1)">◀ Prev</button>
+      <select class="chapter-select" id="chapterSelectM" onchange="jumpToChapter(this.value)">
+        <option value="0">📖 Chapter</option>
+        <option value="cover">Cover</option>
+        <option value="toc">Contents</option>
+        <option value="dotnet-most">C# Most Imp</option>
+        <option value="dotnet-important">C# Important</option>
+        <option value="dotnet-advanced">C# Advanced</option>
+        <option value="sql-basic">SQL Basic</option>
+        <option value="sql-intermediate">SQL Intermediate</option>
+        <option value="sql-advanced">SQL Advanced</option>
+        <option value="sql-realtime">SQL Real-Time</option>
+        <option value="sql-optimization">SQL Optimization</option>
+      </select>
+      <button class="btn btn-nav" id="btnNextM" onclick="navigate(1)">Next ▶</button>
+    </div>
+    <!-- Row 2: Search -->
+    <div class="bottom-nav-row">
+      <input class="search-box" id="searchBoxM" placeholder="🔍 Search question..." oninput="searchQuestion(this.value)" style="flex:1;" />
+    </div>
+  </nav>
 
   <div class="toast" id="toast"></div>
 
@@ -646,16 +809,34 @@
   <script src="data6.js"></script>
   <script src="data.js"></script>
   <script>
+    // ── STATE ──
     let currentSpread = 0, totalSpreads = 0, spreads = [];
+    let mobileIdx = 0, mobilePages = [];
 
+    function isMobile() { return window.innerWidth <= 680; }
+
+    // ── BUILD DATA ──
     function buildSpreads() {
+      // Desktop spreads (2 questions per spread)
       spreads = [{ type: 'cover' }, { type: 'toc' }];
       for (let i = 0; i < QUESTIONS.length; i += 2)
         spreads.push({ type: 'questions', left: QUESTIONS[i], right: QUESTIONS[i + 1] || null });
+      spreads.push({ type: 'end' });
       totalSpreads = spreads.length;
+
+      // Mobile pages (1 item per page — every question gets its own page)
+      mobilePages = [{ type: 'cover' }, { type: 'toc' }];
+      for (let i = 0; i < QUESTIONS.length; i++)
+        mobilePages.push({ type: 'question', q: QUESTIONS[i] });
+      mobilePages.push({ type: 'end' });
     }
 
+    // ── RENDER ──
     function render() {
+      if (isMobile()) renderMobile(); else renderDesktop();
+    }
+
+    function renderDesktop() {
       const s = spreads[currentSpread];
       const L = document.getElementById('pageLeft');
       const R = document.getElementById('pageRight');
@@ -665,34 +846,177 @@
         L.className += ' cover-left'; R.className += ' cover-right';
       } else if (s.type === 'toc') {
         L.innerHTML = tocLeft(); R.innerHTML = tocRight();
+      } else if (s.type === 'end') {
+        L.innerHTML = endLeft(); R.innerHTML = endRight();
+        L.className += ' cover-left'; R.className += ' cover-right';
       } else {
         L.innerHTML = s.left ? renderQ(s.left) : blank();
         R.innerHTML = s.right ? renderQ(s.right) : blank();
       }
-      document.getElementById('spreadLbl').textContent = `${currentSpread + 1} / ${totalSpreads}`;
-      document.getElementById('progressFill').style.width = ((currentSpread / (totalSpreads - 1)) * 100) + '%';
-      document.getElementById('btnPrev').disabled = (currentSpread === 0);
-      document.getElementById('btnNext').disabled = (currentSpread === totalSpreads - 1);
+      const total = totalSpreads;
+      document.getElementById('spreadLbl').textContent = `${currentSpread + 1} / ${total}`;
+      document.getElementById('progressFill').style.width = ((currentSpread / (total - 1)) * 100) + '%';
+      const atStart = currentSpread === 0, atEnd = currentSpread === total - 1;
+      document.getElementById('btnPrev').disabled = atStart;
+      document.getElementById('btnNext').disabled = atEnd;
+      document.getElementById('btnPrevM').disabled = atStart;
+      document.getElementById('btnNextM').disabled = atEnd;
     }
+
+    function renderMobile() {
+      const p = mobilePages[mobileIdx];
+      const R = document.getElementById('pageRight');
+      R.className = 'page page-right';
+      if (p.type === 'cover') {
+        R.innerHTML = coverRight();      // coverRight() already returns combined mobile cover
+        R.className += ' cover-right';
+      } else if (p.type === 'toc') {
+        R.innerHTML = mobileToc();
+      } else if (p.type === 'question') {
+        R.innerHTML = renderQ(p.q);
+      } else if (p.type === 'end') {
+        R.innerHTML = endRight();
+        R.className += ' cover-right';
+      }
+      const total = mobilePages.length;
+      document.getElementById('spreadLbl').textContent = `${mobileIdx + 1} / ${total}`;
+      document.getElementById('progressFill').style.width = ((mobileIdx / (total - 1)) * 100) + '%';
+      const atStart = mobileIdx === 0, atEnd = mobileIdx === total - 1;
+      document.getElementById('btnPrev').disabled = atStart;
+      document.getElementById('btnNext').disabled = atEnd;
+      document.getElementById('btnPrevM').disabled = atStart;
+      document.getElementById('btnNextM').disabled = atEnd;
+    }
+
+    // Combined TOC for mobile (single page)
+    function mobileToc() {
+      const all = [
+        { label: '.NET / C# — Most Important', id: 'dotnet-most' },
+        { label: '.NET / C# — Important', id: 'dotnet-important' },
+        { label: '.NET / C# — Advanced', id: 'dotnet-advanced' },
+        { label: 'SQL — Basic Level', id: 'sql-basic' },
+        { label: 'SQL — Intermediate', id: 'sql-intermediate' },
+        { label: 'SQL — Advanced', id: 'sql-advanced' },
+        { label: 'SQL — Real-Time', id: 'sql-realtime' },
+        { label: 'SQL — Optimization', id: 'sql-optimization' },
+      ];
+      let h = `<div class="page-inner"><div class="chapter-badge badge-toc">Contents</div>
+  <div class="toc-title">📑 Table of Contents</div>`;
+      all.forEach(c => h += `<div class="toc-item" onclick="jumpToChapter('${c.id}')"><span>${c.label}</span><span>▶</span></div>`);
+      return h + `<div style="margin-top:auto;text-align:center;font-family:'Nunito',sans-serif;font-size:.6rem;color:#9e7c44;padding-top:12px;">📖 172 Questions • English + Hindi</div></div>`;
+    }
+
+    // ── NAVIGATE ──
+    function navigate(dir) {
+      if (isMobile()) {
+        const nx = mobileIdx + dir;
+        if (nx < 0 || nx >= mobilePages.length) return;
+        const R = document.getElementById('pageRight');
+        R.classList.add(dir > 0 ? 'fr' : 'fl');
+        setTimeout(() => { mobileIdx = nx; renderMobile(); }, 180);
+      } else {
+        const nx = currentSpread + dir;
+        if (nx < 0 || nx >= totalSpreads) return;
+        const L = document.getElementById('pageLeft');
+        const R = document.getElementById('pageRight');
+        if (dir > 0) { L.classList.add('fl'); R.classList.add('fr'); }
+        else { L.classList.add('fr'); R.classList.add('fl'); }
+        setTimeout(() => { currentSpread = nx; renderDesktop(); }, 180);
+      }
+    }
+
+    // ── JUMP TO CHAPTER ──
+    // Desktop spread index → mobile page index: mobileIdx = 2 + 2*(spreadIdx-2) = 2*spreadIdx - 2
+    const CHAPTER_MAP = { cover: 0, toc: 1, 'dotnet-most': 2, 'dotnet-important': 16, 'dotnet-advanced': 25, 'sql-basic': 31, 'sql-intermediate': 46, 'sql-advanced': 57, 'sql-realtime': 66, 'sql-optimization': 74 };
+    function jumpToChapter(id) {
+      if (CHAPTER_MAP[id] === undefined) return;
+      if (isMobile()) {
+        const s = CHAPTER_MAP[id];
+        mobileIdx = (s <= 1) ? s : 2 + 2 * (s - 2); // cover=0, toc=1, else map spread→mobile
+        renderMobile();
+      } else {
+        currentSpread = CHAPTER_MAP[id]; renderDesktop();
+      }
+      document.getElementById('chapterSelect').value = 0;
+      document.getElementById('chapterSelectM').value = 0;
+    }
+
+    // ── SEARCH ──
+    function searchQuestion(val) {
+      if (!val.trim()) return;
+      const v = val.toLowerCase();
+      const idx = QUESTIONS.findIndex(q => q.q.toLowerCase().includes(v) || q.en.toLowerCase().includes(v));
+      if (idx >= 0) {
+        if (isMobile()) { mobileIdx = 2 + idx; renderMobile(); }
+        else { currentSpread = 2 + Math.floor(idx / 2); renderDesktop(); }
+        showToast('Q' + QUESTIONS[idx].num + ': ' + QUESTIONS[idx].q.slice(0, 40) + '...');
+      } else showToast('Not found');
+    }
+
+    function showToast(msg) {
+      const t = document.getElementById('toast');
+      t.textContent = msg; t.classList.add('show');
+      setTimeout(() => t.classList.remove('show'), 2500);
+    }
+
+    document.addEventListener('keydown', e => {
+      if (e.key === 'ArrowRight' || e.key === 'ArrowDown') navigate(1);
+      if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') navigate(-1);
+    });
+    let tx = 0;
+    document.addEventListener('touchstart', e => tx = e.touches[0].clientX, { passive: true });
+    document.addEventListener('touchend', e => { const dx = e.changedTouches[0].clientX - tx; if (Math.abs(dx) > 50) navigate(dx < 0 ? 1 : -1); }, { passive: true });
+    // Re-render on orientation / resize so mode switches correctly
+    window.addEventListener('resize', () => render());
+
+    buildSpreads(); render();
 
     function coverLeft() {
       return `<div class="cover-inner">
   <div class="cover-icon">💻</div>
-  <div class="cover-title">.NET & C# Interview</div>
-  <div class="cover-sub">Most asked questions with real-world examples in English & Hindi</div>
+  <div class="cover-title">.NET &amp; C# Interview</div>
+  <div class="cover-sub">Most asked questions with real-world examples in English &amp; Hindi</div>
   <div class="cover-badge">100+ .NET Questions</div>
   <div class="cover-stats">
     <div class="stat"><div class="stat-num">43</div><div class="stat-lbl">Core C#</div></div>
     <div class="stat"><div class="stat-num">19</div><div class="stat-lbl">ASP.NET</div></div>
     <div class="stat"><div class="stat-num">38</div><div class="stat-lbl">Advanced</div></div>
-  </div></div>`;
+  </div>
+  <div style="margin-top:auto;font-family:'Nunito',sans-serif;font-size:.6rem;color:rgba(255,255,255,.5);padding-top:16px;">✍️ Prepared by <strong style="color:#ffa726;">Bhupendra</strong></div>
+</div>`;
     }
 
     function coverRight() {
+      // On mobile (≤680px) show a combined .NET + SQL cover on the single visible page
+      if (window.innerWidth <= 680) {
+        return `<div class="cover-inner" style="gap:10px;">
+  <div class="cover-icon" style="font-size:2.8rem;margin-bottom:6px;">📚</div>
+  <div class="cover-title" style="font-size:1.25rem;">.NET &amp; SQL<br>Interview Book</div>
+  <div class="cover-sub">Most asked questions • English &amp; Hindi<br>Real-world code examples</div>
+  <div class="cover-badge">172 Questions Inside</div>
+  <div style="width:100%;margin-top:12px;">
+    <div style="font-family:'Nunito',sans-serif;font-size:.58rem;font-weight:800;color:#ffa726;text-transform:uppercase;letter-spacing:1.5px;margin-bottom:6px;">💻 .NET / C#</div>
+    <div class="cover-stats" style="justify-content:center;margin-top:0;margin-bottom:10px;">
+      <div class="stat"><div class="stat-num">43</div><div class="stat-lbl">Core C#</div></div>
+      <div class="stat"><div class="stat-num">19</div><div class="stat-lbl">ASP.NET</div></div>
+      <div class="stat"><div class="stat-num">38</div><div class="stat-lbl">Advanced</div></div>
+    </div>
+    <div style="height:1px;background:rgba(255,167,38,.2);margin-bottom:10px;"></div>
+    <div style="font-family:'Nunito',sans-serif;font-size:.58rem;font-weight:800;color:#4db6ac;text-transform:uppercase;letter-spacing:1.5px;margin-bottom:6px;">🗄️ SQL</div>
+    <div class="cover-stats" style="justify-content:center;margin-top:0;">
+      <div class="stat"><div class="stat-num">26</div><div class="stat-lbl">Basic</div></div>
+      <div class="stat"><div class="stat-num">26</div><div class="stat-lbl">Inter.</div></div>
+      <div class="stat"><div class="stat-num">28</div><div class="stat-lbl">Advanced</div></div>
+    </div>
+  </div>
+  <div style="margin-top:auto;font-family:'Nunito',sans-serif;font-size:.62rem;color:rgba(255,255,255,.5);padding-top:14px;">✍️ Prepared by <strong style="color:#ffa726;">Bhupendra</strong></div>
+</div>`;
+      }
+      // Desktop: original SQL-only right cover
       return `<div class="cover-inner">
   <div class="cover-icon">🗄️</div>
   <div class="cover-title">SQL Interview</div>
-  <div class="cover-sub">Basic to Advanced with real-world scenarios & optimization</div>
+  <div class="cover-sub">Basic to Advanced with real-world scenarios &amp; optimization</div>
   <div class="cover-badge">80+ SQL Questions</div>
   <div class="cover-stats">
     <div class="stat"><div class="stat-num">26</div><div class="stat-lbl">Basic</div></div>
@@ -747,45 +1071,51 @@
   </div>`;
     }
 
+    // ── END / BACK COVER ──
+    function endLeft() {
+      return `<div class="cover-inner">
+  <div class="cover-icon">🎓</div>
+  <div class="cover-title" style="font-size:1.3rem;">You Did It!</div>
+  <div class="cover-sub">You've completed all 172 questions.<br>Keep practising &amp; ace your interviews!</div>
+  <div style="margin:16px 0;">
+    <div style="font-family:'Nunito',sans-serif;font-size:.62rem;color:rgba(255,255,255,.45);margin-bottom:6px;">PREPARED BY</div>
+    <div style="font-family:'Nunito',sans-serif;font-size:1.5rem;font-weight:800;color:#ffa726;letter-spacing:2px;">Bhupendra</div>
+    <div style="font-family:'Nunito',sans-serif;font-size:.6rem;color:rgba(255,255,255,.4);margin-top:4px;">.NET Developer &amp; SQL Enthusiast</div>
+  </div>
+  <div class="cover-badge" style="background:rgba(255,167,38,.15);">Best of Luck! 🚀</div>
+</div>`;
+    }
+
+    function endRight() {
+      if (window.innerWidth <= 680) {
+        // Mobile: show combined end page
+        return `<div class="cover-inner">
+  <div class="cover-icon">🌟</div>
+  <div class="cover-title" style="font-size:1.25rem;">Well Done!</div>
+  <div class="cover-sub">All 172 questions completed.<br>Keep practising &amp; ace your interviews!</div>
+  <div style="margin:14px 0;">
+    <div style="font-family:'Nunito',sans-serif;font-size:.6rem;color:rgba(255,255,255,.45);margin-bottom:6px;">PREPARED BY</div>
+    <div style="font-family:'Nunito',sans-serif;font-size:1.6rem;font-weight:800;color:#ffa726;letter-spacing:2px;">Bhupendra</div>
+    <div style="font-family:'Nunito',sans-serif;font-size:.6rem;color:rgba(255,255,255,.4);margin-top:4px;">.NET Developer &amp; SQL Enthusiast</div>
+  </div>
+  <div class="cover-badge">Best of Luck! 🚀</div>
+  <div style="margin-top:14px;font-family:'Nunito',sans-serif;font-size:.58rem;color:rgba(255,255,255,.3);">📚 .NET &amp; SQL Interview Book • 172 Q&amp;A</div>
+</div>`;
+      }
+      return `<div class="cover-inner">
+  <div class="cover-icon">📚</div>
+  <div class="cover-title" style="font-size:1.1rem;">.NET &amp; SQL<br>Interview Book</div>
+  <div class="cover-sub">172 Questions • English + Hindi<br>Real-world code examples</div>
+  <div style="margin-top:16px;font-family:'Nunito',sans-serif;font-size:.58rem;color:rgba(255,255,255,.3);line-height:1.8;">
+    <div>💻 C# Most Important • Important • Advanced</div>
+    <div>🗄️ SQL Basic • Intermediate • Advanced</div>
+    <div>⚡ Real-Time Scenarios • Optimization</div>
+  </div>
+  <div style="margin-top:auto;font-family:'Nunito',sans-serif;font-size:.58rem;color:rgba(255,255,255,.3);padding-top:12px;">© Bhupendra — All rights reserved</div>
+</div>`;
+    }
+
     function blank() { return `<div class="page-inner" style="display:flex;align-items:center;justify-content:center;"><div style="font-size:3rem;opacity:.3">📖</div></div>`; }
-
-    function navigate(dir) {
-      const nx = currentSpread + dir;
-      if (nx < 0 || nx >= totalSpreads) return;
-      const L = document.getElementById('pageLeft');
-      const R = document.getElementById('pageRight');
-      if (dir > 0) { L.classList.add('fl'); R.classList.add('fr') }
-      else { L.classList.add('fr'); R.classList.add('fl') }
-      setTimeout(() => { currentSpread = nx; render(); }, 180);
-    }
-
-    function jumpToChapter(id) {
-      const map = { cover: 0, toc: 1, 'dotnet-most': 2, 'dotnet-important': 16, 'dotnet-advanced': 25, 'sql-basic': 31, 'sql-intermediate': 46, 'sql-advanced': 57, 'sql-realtime': 66, 'sql-optimization': 74 };
-      if (map[id] !== undefined) { currentSpread = map[id]; render(); }
-      document.getElementById('chapterSelect').value = 0;
-    }
-
-    function searchQuestion(val) {
-      if (!val.trim()) return;
-      const v = val.toLowerCase();
-      const idx = QUESTIONS.findIndex(q => q.q.toLowerCase().includes(v) || q.en.toLowerCase().includes(v));
-      if (idx >= 0) { currentSpread = 2 + Math.floor(idx / 2); render(); showToast('Q' + QUESTIONS[idx].num + ': ' + QUESTIONS[idx].q.slice(0, 40) + '...'); }
-      else showToast('Not found');
-    }
-
-    function showToast(msg) {
-      const t = document.getElementById('toast');
-      t.textContent = msg; t.classList.add('show');
-      setTimeout(() => t.classList.remove('show'), 2500);
-    }
-
-    document.addEventListener('keydown', e => {
-      if (e.key === 'ArrowRight' || e.key === 'ArrowDown') navigate(1);
-      if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') navigate(-1);
-    });
-    let tx = 0;
-    document.addEventListener('touchstart', e => tx = e.touches[0].clientX, { passive: true });
-    document.addEventListener('touchend', e => { const dx = e.changedTouches[0].clientX - tx; if (Math.abs(dx) > 50) navigate(dx < 0 ? 1 : -1); }, { passive: true });
 
     buildSpreads(); render();
   </script>
